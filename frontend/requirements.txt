@@ -1,0 +1,7 @@
+# Frontend dependencies for the Interview Prep Streamlit UI.
+#
+# streamlit — the web UI framework (replaces the CLI)
+# requests  — HTTP client to call the FastAPI backend
+
+streamlit
+requests
