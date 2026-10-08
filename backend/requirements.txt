@@ -1,0 +1,19 @@
+# Backend dependencies for the Interview Prep API.
+#
+# groq          — LLM inference (free tier, llama-3.3-70b-versatile)
+# pypdf         — extract text from uploaded PDF resumes
+# python-dotenv — load .env for API keys without hard-coding them
+# tavily-python — web search API replacing Groq's browser_search
+# fastapi       — REST API framework
+# uvicorn[standard] — ASGI server to run FastAPI
+# python-multipart — required by FastAPI for file upload (UploadFile)
+# pytest        — test runner (dev only)
+
+groq
+pypdf
+python-dotenv
+tavily-python
+fastapi
+uvicorn[standard]
+python-multipart
+pytest
