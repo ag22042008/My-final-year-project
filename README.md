@@ -21,6 +21,48 @@ The backend handles LLM interactions and search; the frontend handles the UI.
     │   └── CHANGES.md          # Refactoring logs
     └── .env.example
 
+## Architecture
+
+```mermaid
+flowchart LR
+    User([User])
+
+    subgraph FE["Frontend (Streamlit)"]
+        UI["app.py<br/>Streamlit UI"]
+        Client["api_client.py<br/>HTTP client"]
+        UI --> Client
+    end
+
+    subgraph BE["Backend (FastAPI)"]
+        API["app.py<br/>FastAPI routes"]
+        Agents["agents.py<br/>Core logic"]
+        Prompts[("prompts/")]
+        API --> Agents
+        Agents --- Prompts
+    end
+
+    subgraph EXT["External services"]
+        Tavily["Tavily Search<br/>real interview questions"]
+        Groq["Groq<br/>llama-3.3-70b-versatile"]
+    end
+
+    User -->|"upload PDF resume,<br/>submit answers"| UI
+    UI -->|"questions,<br/>grades, feedback"| User
+    Client -->|"HTTP request"| API
+    API -->|"validated JSON response"| Client
+    Agents -->|"search queries"| Tavily
+    Tavily -->|"web results"| Agents
+    Agents -->|"prompts"| Groq
+    Groq -->|"completions"| Agents
+```
+
+**Request flow**
+
+1. The user uploads a PDF resume (and later submits answers) in the Streamlit UI.
+2. `api_client.py` sends the request over HTTP to the FastAPI backend.
+3. `agents.py` uses Groq to interpret the resume and drive the interview, and Tavily to find real interview questions on the web.
+4. The backend validates the data exchanged with each service and returns a JSON response, which the UI renders.
+
 ## Setup
 
 Set up your `.env` file first:
