@@ -1,3 +1,9 @@
+
 groq
 pypdf
 python-dotenv
+tavily-python
+fastapi
+uvicorn[standard]
+python-multipart
+pytest
