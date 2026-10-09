@@ -13,7 +13,7 @@ easy to implement without writing React/Vue frontends.
 
 import streamlit as st
 import api_client
-
+st.sidebar.write("Backend URL:", repr(api_client.BACKEND_URL))
 # ---------------------------------------------------------------------------
 # App Setup & CSS Configuration
 # ---------------------------------------------------------------------------
